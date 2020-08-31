@@ -1,0 +1,92 @@
+---
+title: "Dados"
+author: "Giovanny Lopez"
+date: "31/8/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(cache = FALSE, warning = FALSE,
+                      message = FALSE, echo = TRUE, dpi = 180,
+                      fig.width = 8, fig.height = 5)
+```
+
+## Rolando dados
+```{r}
+library("tidyverse")
+```
+
+### Función para rolar
+```{r}
+#A rolar la función 
+rolar <- function(){
+    lados <- 1:6
+    dado <- sample(lados,2,T)
+    sum(dado)
+}
+```
+
+### Rolar decidiendo cantidad de lados
+```{r}
+#rolar2 necesita un argumento como rolar2(lados=1:6)
+rolar2 <- function(lados){
+    dados <- sample(lados,2,T)
+    sum(dados)
+}
+```
+
+### Rolar con argumento establecido
+```{r}
+#roll2.1 hace que exista un argumento por default
+rolar2.1 <- function(lados=1:6){
+    dados <- sample(lados,2,T)
+    sum(dados)
+}
+```
+
+## Gráficas
+```{r}
+#Demostración
+x <- seq(-1,1,by = 0.2)
+y <- x^3
+qplot(x,y)
+```
+
+### Histogramas
+```{r}
+#qplot crea un histograma según el argumento vector
+x <- c(1, 2, 2, 2, 3, 3)
+qplot(x, binwidth = 1)
+#o
+qplot(x,binwidth=0.5)
+```
+
+### Replicar función
+```{r}
+replicate(20, rolar())
+```
+
+### Simulación de probabilidades
+```{r}
+#Distribución de las roladas de datos de 6 lados
+roladas <- replicate(10000,rolar())
+qplot(roladas,binwidth=1)
+```
+
+## Engaño para ganar más
+```{r}
+#Reescribimos la función rolar para que 6 tenga prob=3/8
+rolar_ganar <- function() {
+    lados <- 1:6
+    dados <- sample(lados, size = 2, replace = TRUE,
+                   prob = c(1/8, 1/8, 1/8, 1/8, 1/8, 3/8))
+    sum(dados)
+}
+```
+
+
+
+
+
+
